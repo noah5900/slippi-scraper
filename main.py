@@ -21,12 +21,12 @@ def main():
         f.write(str(currentRating))
         f.close()
 
-    print("Starting rank: ", end="")
-    print_in_green(str(get_file_rank(player_name)))
+    print("Current rank: ", end="")
+    print_in_green(str(round(get_file_rank(player_name))))
     print(" " + get_rank_division(get_file_rank(player_name)), end="")
     print()
 
-    print_opponent()
+    print_opponent(player_name)
 
     print("Waiting for match to end...")
     while True:
@@ -34,8 +34,9 @@ def main():
         if os.path.exists(clippiFileLocation):
             print("-------------")
             find_difference(player_name)
-            print_opponent()
-            os.remove(clippiFileLocation)
+            print_opponent(player_name)
+            if os.path.exists(clippiFileLocation):
+                os.remove(clippiFileLocation)
         # else: 
         #     print("Waiting...")
 

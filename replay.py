@@ -5,7 +5,7 @@ from rating import *
 
 dir_path = os.path.expandvars("%HOMEPATH%") + "\\Documents\\Slippi"
 
-def print_opponent():
+def print_opponent(player_name):
   # Use glob to find all the files in the directory
   files = glob.glob(os.path.join(dir_path, "*"))
 
@@ -21,12 +21,12 @@ def print_opponent():
   opponent = ""
   for player in players:
     if hasattr(player, "netplay") and hasattr(player.netplay, "code"):
-      if player.netplay.code != "NANO#493":
+      if player.netplay.code != player_name:
         opponent = player.netplay.code
   if opponent != "":
     opponent_rating = fetch_rating(opponent)
     print(opponent + " rank: ", end="")
-    print_in_green(str(opponent_rating))
+    print_in_green(str(round(opponent_rating)))
     print(" " + get_rank_division(opponent_rating), end="")
     print()
   else:
