@@ -9,6 +9,7 @@ from rating import *
 from replay import print_opponent
 
 os.system("")
+os.system("cls")
 
 if len(sys.argv) < 2:
     print("Please provide a player name as a command-line argument")
@@ -35,7 +36,7 @@ def main():
         time.sleep(1)
         if os.path.exists(clippiFileLocation):
             print("-------------")
-            find_difference()
+            find_difference(player_name)
             print_opponent()
             os.remove(clippiFileLocation)
         # else: 

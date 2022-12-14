@@ -48,7 +48,7 @@ def find_difference(player_name):
     # Print current rank
     print()
     print("Current rank: ", end="")
-    print_in_green(str(fetch_rating()))
+    print_in_green(str(fetch_rating(player_name)))
     print()
     
     # Update the file

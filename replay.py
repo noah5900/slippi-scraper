@@ -20,14 +20,16 @@ def print_opponent():
   players = game.metadata.players
   opponent = ""
   for player in players:
-    if hasattr(player, "netplay"):
+    if hasattr(player, "netplay") and hasattr(player.netplay, "code"):
       if player.netplay.code != "NANO#493":
         opponent = player.netplay.code
-  
-  opponent_rating = fetch_rating(opponent)
-  print("Last Opponent " + opponent + " rating: ", end="")
-  print_in_green(str(opponent_rating))
-  print()
+  if opponent != "":
+    opponent_rating = fetch_rating(opponent)
+    print("Last Opponent " + opponent + " rating: ", end="")
+    print_in_green(str(opponent_rating))
+    print()
+  else:
+    print("Unable to parse opponent from replay")
   
   
   
