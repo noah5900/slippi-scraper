@@ -1,6 +1,7 @@
 import os
 from colors import print_in_green, print_in_red
 import requests
+from ranking import get_rank_division
 
 clippiFileLocation = os.path.expandvars("%HOMEPATH%") + "\\Documents\\clippiFile.txt"
 rankFileLocation = os.path.expandvars("%HOMEPATH%") + "\\Documents\\rank.txt"
@@ -29,7 +30,7 @@ def get_file_rank():
 
 def update_file_rank(rank):
     f = open(rankFileLocation, "w")
-    f.write(str(rank))
+    f.write(rank)
     f.close()
 
 def find_difference(player_name):
@@ -48,8 +49,9 @@ def find_difference(player_name):
     # Print current rank
     print()
     print("Current rank: ", end="")
-    print_in_green(str(fetch_rating(player_name)))
+    print_in_green(str(newRating))
+    print(" " + get_rank_division(newRating), end="")
     print()
     
     # Update the file
-    update_file_rank(newRating)
+    update_file_rank(str(newRating))

@@ -25,11 +25,9 @@ def print_opponent():
         opponent = player.netplay.code
   if opponent != "":
     opponent_rating = fetch_rating(opponent)
-    print("Last Opponent " + opponent + " rating: ", end="")
+    print(opponent + " rank: ", end="")
     print_in_green(str(opponent_rating))
+    print(" " + get_rank_division(opponent_rating), end="")
     print()
   else:
     print("Unable to parse opponent from replay")
-  
-  
-  
