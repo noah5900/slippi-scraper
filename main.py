@@ -11,11 +11,7 @@ from replay import print_opponent
 os.system("")
 os.system("cls")
 
-if len(sys.argv) < 2:
-    print("Please provide a player name as a command-line argument")
-    sys.exit()
-
-player_name = sys.argv[1]
+player_name = input("Please enter your slippi connect code (e.g. NANO#493): ")
 
 def main():
     if not os.path.exists(rankFileLocation):
