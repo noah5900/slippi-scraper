@@ -10,12 +10,18 @@ from replay import print_opponent
 
 os.system("")
 
+if len(sys.argv) < 2:
+    print("Please provide a player name as a command-line argument")
+    sys.exit()
+
+player_name = sys.argv[1]
+
 def main():
     if not os.path.exists(rankFileLocation):
         print("Initiating rank file")
         f = open(rankFileLocation, "w")
-        currentRating = fetch_rating()
-        f.write(currentRating)
+        currentRating = fetch_rating(player_name)
+        f.write(str(currentRating))
         f.close()
 
     print("Starting rank: ", end="")

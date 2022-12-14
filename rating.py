@@ -15,7 +15,7 @@ def fetch_user(user):
         json=data(user)
     )
 
-def fetch_rating(user="NANO#493"):
+def fetch_rating(user):
     responseJson = fetch_user(user).json()
     return responseJson['data']['getConnectCode']['user']['rankedNetplayProfile']['ratingOrdinal']   
 
@@ -32,17 +32,24 @@ def update_file_rank(rank):
     f.write(str(rank))
     f.close()
 
-def find_difference():
-    newRating = float(fetch_rating())
+def find_difference(player_name):
+    # Find difference in rank
+    newRating = float(fetch_rating(player_name))
     oldRating = float(get_file_rank())
     difference = newRating - oldRating
+    
+    # Print change in rank
     print("Rating Change: ", end="")
     if difference >= 0:
         print_in_green(str(difference))
     elif difference < 0:
         print_in_red(str(difference))
+        
+    # Print current rank
     print()
     print("Current rank: ", end="")
     print_in_green(str(fetch_rating()))
     print()
+    
+    # Update the file
     update_file_rank(newRating)
