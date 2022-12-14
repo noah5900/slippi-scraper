@@ -20,12 +20,13 @@ def fetch_rating(user):
     responseJson = fetch_user(user).json()
     return responseJson['data']['getConnectCode']['user']['rankedNetplayProfile']['ratingOrdinal']   
 
-def get_file_rank():
+def get_file_rank(player_name):
     f = open(rankFileLocation, "r")
     rank = f.read()
     f.close()
     if rank == "":
-      rank = fetch_rating()
+      rank = fetch_rating(player_name)
+      update_file_rank(rank)
     return rank
 
 def update_file_rank(rank):

@@ -22,8 +22,8 @@ def main():
         f.close()
 
     print("Starting rank: ", end="")
-    print_in_green(str(get_file_rank()))
-    print(" " + get_rank_division(get_file_rank()), end="")
+    print_in_green(str(get_file_rank(player_name)))
+    print(" " + get_rank_division(get_file_rank(player_name)), end="")
     print()
 
     print_opponent()
