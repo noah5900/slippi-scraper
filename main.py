@@ -1,12 +1,8 @@
 from time import time
-import requests
 import time
 import os
-from pathlib import Path
-from colors import print_in_green, print_in_red
-import sys
 from rating import *
-from replay import print_opponent
+from replay import post_game_summary
 
 os.system("")
 os.system("cls")
@@ -21,20 +17,14 @@ def main():
         f.write(str(currentRating))
         f.close()
 
-    print("Current rank: ", end="")
-    print_in_green(str(round(get_file_rank(player_name))))
-    print(" " + get_rank_division(get_file_rank(player_name)), end="")
-    print()
-
-    print_opponent(player_name)
-
+    post_game_summary(player_name)
+    
     print("Waiting for match to end...")
     while True:
         time.sleep(1)
         if os.path.exists(clippiFileLocation):
             print("-------------")
-            find_difference(player_name)
-            print_opponent(player_name)
+            post_game_summary(player_name)
             if os.path.exists(clippiFileLocation):
                 os.remove(clippiFileLocation)
         # else: 

@@ -1,7 +1,5 @@
 import os
-from colors import print_in_green, print_in_red
 import requests
-from ranking import get_rank_division, print_rating_to_next_rank
 
 clippiFileLocation = os.path.expandvars("%HOMEPATH%") + "\\Documents\\clippiFile.txt"
 rankFileLocation = os.path.expandvars("%HOMEPATH%") + "\\Documents\\rank.txt"
@@ -18,7 +16,21 @@ def fetch_user(user):
 
 def fetch_rating(user):
     responseJson = fetch_user(user).json()
-    return responseJson['data']['getConnectCode']['user']['rankedNetplayProfile']['ratingOrdinal']   
+    return responseJson['data']['getConnectCode']['user']['rankedNetplayProfile']['ratingOrdinal']
+
+def fetch_win_loss(user):
+    responseJson = fetch_user(user).json()
+    netplayProfile = responseJson['data']['getConnectCode']['user']['rankedNetplayProfile']
+
+    # Extract the wins, losses, and ratingUpdateCount values
+    wins = netplayProfile["wins"]
+    losses = netplayProfile["losses"]
+    rating_update_count = netplayProfile["ratingUpdateCount"]
+
+    # Create a tuple containing the extracted values
+    results = (wins, losses, rating_update_count)
+    
+    return results
 
 def get_file_rank(player_name):
     f = open(rankFileLocation, "r")
@@ -34,29 +46,3 @@ def update_file_rank(rank):
     f.write(rank)
     f.close()
 
-def find_difference(player_name):
-    # Find difference in rank
-    newRating = float(fetch_rating(player_name))
-    oldRating = float(get_file_rank(player_name))
-    difference = newRating - oldRating
-    difference = round(difference)
-
-    # Print change in rank
-    print("Rating Change: ", end="")
-    if difference >= 0:
-        print_in_green("+" + str(difference))
-    elif difference < 0:
-        print_in_red(str(difference))
-    print()
-    
-    # Print distance to next rank
-    print_rating_to_next_rank(newRating)
-        
-    # Print current rank
-    print("Current rank: ", end="")
-    print_in_green(str(round(newRating)))
-    print(" " + get_rank_division(newRating), end="")
-    print()
-    
-    # Update the file
-    update_file_rank(str(newRating))
