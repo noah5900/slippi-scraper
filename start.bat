@@ -4,6 +4,6 @@ call Scripts\activate.bat
 
 pip install -r requirements.txt
 
-Scripts\python.exe main.py
+Scripts\python.exe src\main.py
 
 pause
